@@ -34,7 +34,51 @@
     
     <!-- Script for creating the bubble chart -->
     <script>
-        // Your D3.js code will go here
+    // Your JSON data URL
+    const dataUrl = 'codetrends.json'; // Assuming the JSON file is in the root directory
+
+    // Dimensions for the SVG container
+    const width = 960;
+    const height = 500;
+
+    // Select the SVG element
+    const svg = d3.select('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    // Load the JSON data
+    d3.json(dataUrl).then(data => {
+        // Create a scale for your bubbles
+        const radiusScale = d3.scaleSqrt()
+            .domain([0, d3.max(data, d => parseFloat(d.rating))])
+            .range([0, 50]); // Adjust range to fit your design
+
+        // Create the bubbles
+        const bubbles = svg.selectAll('.bubble')
+            .data(data)
+            .enter().append('circle')
+            .attr('class', 'bubble')
+            .attr('r', d => radiusScale(parseFloat(d.rating)))
+            .attr('cx', d => Math.random() * width) // Random x position for each bubble
+            .attr('cy', d => Math.random() * height) // Random y position for each bubble
+            .style('fill', 'cyan') // Temporarily color the bubbles cyan for visibility
+            .style('stroke', 'white') // Add a white stroke to the bubbles
+            .style('stroke-width', '2px');
+
+        // Add labels to the bubbles (optional)
+        svg.selectAll('.label')
+            .data(data)
+            .enter().append('text')
+            .attr('class', 'label')
+            .attr('x', d => Math.random() * width) // Align with bubble x position
+            .attr('y', d => Math.random() * height) // Align with bubble y position
+            .text(d => d.language)
+            .style('text-anchor', 'middle')
+            .style('fill', 'white');
+
+    }).catch(error => {
+        console.error('Error loading the data: ', error);
+    });
     </script>
 </body>
 </html>
