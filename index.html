@@ -13,17 +13,28 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             text-align: center;
         }
-
+        svg {
+            border: 1px solid white; /* To make the SVG boundaries visible */
+        }
         /* Additional styles can be added if needed */
     </style>
 </head>
 <body>
     <h1>Code Trends</h1>
-    <!-- Content goes here -->
+    <!-- SVG container for the bubble chart -->
+    <svg width="960" height="500"></svg>
+    
+    <!-- D3.js script -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Script for creating the bubble chart -->
+    <script>
+        // Your D3.js code will go here
+    </script>
 </body>
 </html>
