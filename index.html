@@ -34,51 +34,65 @@
     
     <!-- Script for creating the bubble chart -->
     <script>
-    // Your JSON data URL
-    const dataUrl = 'codetrends.json'; // Assuming the JSON file is in the root directory
+        // Your JSON data URL
+        const dataUrl = 'codetrends.json'; // Update this with the correct path
 
-    // Dimensions for the SVG container
-    const width = 960;
-    const height = 500;
+        // Dimensions for the SVG container
+        const width = 960;
+        const height = 500;
 
-    // Select the SVG element
-    const svg = d3.select('svg')
-        .attr('width', width)
-        .attr('height', height);
+        // Select the SVG element
+        const svg = d3.select('svg');
 
-    // Load the JSON data
-    d3.json(dataUrl).then(data => {
-        // Create a scale for your bubbles
-        const radiusScale = d3.scaleSqrt()
-            .domain([0, d3.max(data, d => parseFloat(d.rating))])
-            .range([0, 50]); // Adjust range to fit your design
+        // Load the JSON data
+        d3.json(dataUrl).then(data => {
+            // Create a scale for your bubbles
+            const radiusScale = d3.scaleSqrt()
+                .domain([0, d3.max(data, d => parseFloat(d.rating))])
+                .range([0, 50]); // Adjust range to fit your design
 
-        // Create the bubbles
-        const bubbles = svg.selectAll('.bubble')
-            .data(data)
-            .enter().append('circle')
-            .attr('class', 'bubble')
-            .attr('r', d => radiusScale(parseFloat(d.rating)))
-            .attr('cx', d => Math.random() * width) // Random x position for each bubble
-            .attr('cy', d => Math.random() * height) // Random y position for each bubble
-            .style('fill', 'cyan') // Temporarily color the bubbles cyan for visibility
-            .style('stroke', 'white') // Add a white stroke to the bubbles
-            .style('stroke-width', '2px');
+            // Create a simulation for positioning the bubbles
+            const simulation = d3.forceSimulation(data)
+                .force('charge', d3.forceManyBody().strength(5))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(d => radiusScale(parseFloat(d.rating))))
+                .on('tick', ticked);
 
-        // Add labels to the bubbles (optional)
-        svg.selectAll('.label')
-            .data(data)
-            .enter().append('text')
-            .attr('class', 'label')
-            .attr('x', d => Math.random() * width) // Align with bubble x position
-            .attr('y', d => Math.random() * height) // Align with bubble y position
-            .text(d => d.language)
-            .style('text-anchor', 'middle')
-            .style('fill', 'white');
+            function ticked() {
+                bubbles
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+            }
 
-    }).catch(error => {
-        console.error('Error loading the data: ', error);
-    });
+            // Create the bubbles
+            const bubbles = svg.selectAll('.bubble')
+                .data(data)
+                .enter().append('circle')
+                    .attr('class', 'bubble')
+                    .attr('r', d => radiusScale(parseFloat(d.rating)))
+                    // The cx and cy attributes will be managed by the simulation
+                    .call(d3.drag() // Enables bubble dragging
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended));
+
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        });
     </script>
 </body>
 </html>
