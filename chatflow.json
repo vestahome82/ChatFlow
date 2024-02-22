@@ -1,102 +1,26 @@
 [
     {
-        "rank": "1",
-        "language": "Python",
-        "rating": "15.16%"
+        "question": "What is ChatFlow?",
+        "answer": "ChatFlow is a sleek, modern chatbot designed to provide instant responses to your queries."
     },
     {
-        "rank": "2",
-        "language": "C",
-        "rating": "10.97%"
+        "question": "Hello?",
+        "answer": "Hi! How are you doing today."
     },
     {
-        "rank": "3",
-        "language": "C++",
-        "rating": "10.53%"
+        "question": "How can I use ChatFlow?",
+        "answer": "You can interact with ChatFlow by typing your questions into the chat interface, and it will respond with helpful information."
     },
     {
-        "rank": "4",
-        "language": "Java",
-        "rating": "8.88%"
+        "question": "What features does ChatFlow have?",
+        "answer": "ChatFlow offers features such as instant replies, conversational context understanding, and easy integration with websites."
     },
     {
-        "rank": "5",
-        "language": "C#",
-        "rating": "7.53%"
+        "question": "Is ChatFlow easy to set up?",
+        "answer": "Absolutely! ChatFlow is designed for ease of setup and can be integrated into your website with just a few lines of code."
     },
     {
-        "rank": "6",
-        "language": "JavaScript",
-        "rating": "3.17%"
-    },
-    {
-        "rank": "7",
-        "language": "SQL",
-        "rating": "1.82%"
-    },
-    {
-        "rank": "8",
-        "language": "Go",
-        "rating": "1.73%"
-    },
-    {
-        "rank": "9",
-        "language": "Visual Basic",
-        "rating": "1.52%"
-    },
-    {
-        "rank": "10",
-        "language": "PHP",
-        "rating": "1.51%"
-    },
-    {
-        "rank": "11",
-        "language": "Fortran",
-        "rating": "1.40%"
-    },
-    {
-        "rank": "12",
-        "language": "Delphi/Object Pascal",
-        "rating": "1.40%"
-    },
-    {
-        "rank": "13",
-        "language": "MATLAB",
-        "rating": "1.26%"
-    },
-    {
-        "rank": "14",
-        "language": "Assembly language",
-        "rating": "1.19%"
-    },
-    {
-        "rank": "15",
-        "language": "Scratch",
-        "rating": "1.18%"
-    },
-    {
-        "rank": "16",
-        "language": "Swift",
-        "rating": "1.16%"
-    },
-    {
-        "rank": "17",
-        "language": "Kotlin",
-        "rating": "1.07%"
-    },
-    {
-        "rank": "18",
-        "language": "Rust",
-        "rating": "1.05%"
-    },
-    {
-        "rank": "19",
-        "language": "COBOL",
-        "rating": "1.01%"
-    },
-    {
-        "rank": "20",
-        "language": "Ruby",
-        "rating": "0.99%"
+        "question": "Can ChatFlow handle complex queries?",
+        "answer": "Yes, ChatFlow is equipped to handle a wide range of complex questions, providing accurate and insightful answers."
     }
 ]
