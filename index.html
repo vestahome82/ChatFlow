@@ -91,9 +91,15 @@
     <script>
         const messageContainer = document.getElementById('message-container');
         const inputField = document.getElementById('chat-message-input');
+        let chatflowData = [];
+
+        fetch('chatflow.json')
+            .then(response => response.json())
+            .then(data => chatflowData = data)
+            .catch(error => console.error('Error loading chatflow data:', error));
 
         function sendMessage() {
-            const message = inputField.value;
+            const message = inputField.value.trim();
             if (message) {
                 displayMessage(message, 'user');
                 getResponse(message);
@@ -114,8 +120,7 @@
         }
 
         function getResponse(userMessage) {
-            // Dummy response function, replace with real logic or API call
-            const response = "I'm just a demo chatbot, but I'm learning!";
+            const response = chatflowData.find(item => item.question.toLowerCase() === userMessage.toLowerCase())?.answer || "I'm not sure how to answer that, but I'm learning every day!";
             setTimeout(() => displayMessage(response, 'chatflow'), 1000); // Simulate response delay
         }
     </script>
