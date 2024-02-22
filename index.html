@@ -79,16 +79,44 @@
 <body>
     <div id="chat-container">
         <div id="message-container">
-            <!-- Messages will be displayed here -->
+            <!-- Icons next to messages -->
         </div>
         <div id="chat-input">
-            <input type="text" placeholder="Type a message...">
-            <button>Send</button>
+            <input id="chat-message-input" type="text" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        // JavaScript for handling chat input and display will go here
+        const messageContainer = document.getElementById('message-container');
+        const inputField = document.getElementById('chat-message-input');
+
+        function sendMessage() {
+            const message = inputField.value;
+            if (message) {
+                displayMessage(message, 'user');
+                getResponse(message);
+                inputField.value = ''; // Clear input field
+            }
+        }
+
+        function displayMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type + '-message');
+            if (type === 'user') {
+                messageDiv.innerHTML = `<i class="fas fa-user message-icon"></i> ${message}`;
+            } else {
+                messageDiv.innerHTML = `<i class="fas fa-robot message-icon"></i> ${message}`;
+            }
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        function getResponse(userMessage) {
+            // Dummy response function, replace with real logic or API call
+            const response = "I'm just a demo chatbot, but I'm learning!";
+            setTimeout(() => displayMessage(response, 'chatflow'), 1000); // Simulate response delay
+        }
     </script>
 </body>
 </html>
