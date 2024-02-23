@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatFlow</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,6 +38,8 @@
         }
 
         .message {
+            display: flex;
+            align-items: center;
             padding: 10px 15px;
             border-radius: 20px;
             max-width: 70%;
@@ -51,6 +53,10 @@
         .chatflow-message {
             align-self: flex-start;
             background-color: #ececec;
+        }
+
+        .message-icon {
+            margin-right: 10px;
         }
 
         #chat-input {
@@ -78,11 +84,9 @@
     </style>
 </head>
 <body>
-    <i class="fas fa-user"></i> User Icon
-    <i class="fas fa-robot"></i> Robot Icon
     <div id="chat-container">
         <div id="message-container">
-            <!-- Icons next to messages -->
+            <!-- Messages will be displayed here -->
         </div>
         <div id="chat-input">
             <input id="chat-message-input" type="text" placeholder="Type a message...">
@@ -112,17 +116,17 @@
         function displayMessage(message, type) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', type + '-message');
-            if (type === 'user') {
-                messageDiv.innerHTML = `<i class="fas fa-user message-icon"></i> ${message}`;
-            } else {
-                messageDiv.innerHTML = `<i class="fas fa-robot message-icon"></i> ${message}`;
-            }
+            const icon = type === 'user' ? 'fa-user' : 'fa-robot';
+            messageDiv.innerHTML = `<i class="fa ${icon} message-icon"></i> ${message}`;
             messageContainer.appendChild(messageDiv);
             messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
         }
 
         function getResponse(userMessage) {
-            const response = chatflowData.find(item => item.question.toLowerCase() === userMessage.toLowerCase())?.answer || "I'm not sure how to answer that, but I'm learning every day!";
+            const matchedResponse = chatflowData.find(item => 
+                item.question.toLowerCase() === userMessage.toLowerCase());
+            const response = matchedResponse ? matchedResponse.answer : 
+                "I'm not sure how to answer that, but I'm learning every day!";
             setTimeout(() => displayMessage(response, 'chatflow'), 1000); // Simulate response delay
         }
     </script>
